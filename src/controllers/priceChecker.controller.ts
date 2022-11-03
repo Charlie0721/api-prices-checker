@@ -19,7 +19,7 @@ export class PriceChecker{
                     const conn = await connect();
                     const barcodeBody:IsearchProduct=req.body.barcode
                    const searchProductBarcode= await conn.query(`SELECT
-                    descripcion, precioventa, codigo, productos.idproducto, barrasprod.barcode, productos.barcode
+                    descripcion, precioventa, codigo, productos.valorico, productos.idproducto, barrasprod.barcode, productos.barcode
                 FROM
                    productos
                    LEFT JOIN
