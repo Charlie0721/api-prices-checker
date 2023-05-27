@@ -22,7 +22,7 @@ export class PriceChecker{
                     descripcion, precioventa, codigo, productos.valorico, productos.idproducto, barrasprod.barcode, productos.barcode
                 FROM
                    productos
-                   LEFT JOIN
+                   LEFT JOIN 
                    barrasprod ON productos.idproducto = barrasprod.idproducto
                 WHERE
                      productos.barcode = ${barcodeBody} OR barrasprod.barcode = ${barcodeBody}
