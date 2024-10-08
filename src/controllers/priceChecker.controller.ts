@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { connect } from "../database";
+import { getConnection } from "../database";
 
 interface IsearchProduct {
   barcode: string;
@@ -11,8 +11,9 @@ export class PriceChecker {
    */
 
   static getProductByBarcode = async (req: Request, res: Response) => {
+    let conn;
     try {
-      const conn = await connect();
+      conn = await getConnection();
       const barcodeBody: IsearchProduct = req.body.barcode;
       const searchProductBarcode = await conn.query(`SELECT
                     descripcion, precioventa, codigo, productos.valorico, productos.idproducto, barrasprod.barcode, productos.barcode
@@ -28,6 +29,10 @@ export class PriceChecker {
     } catch (error) {
       console.log(error);
       return res.status(500).json({ error: error });
+    } finally {
+      if (conn) {
+        conn.release();
+      }
     }
   };
 }
